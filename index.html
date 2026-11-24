@@ -1,0 +1,756 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métodos de Búsqueda | Unidad 6</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f6fc;
+            color: #27324b;
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, #172554, #4338ca, #6366f1);
+            color: white;
+            padding: 65px 20px;
+            text-align: center;
+        }
+
+            header h1 {
+                font-size: 42px;
+                margin-bottom: 10px;
+            }
+
+            header p {
+                font-size: 18px;
+                color: #e0e7ff;
+            }
+
+        .alumno {
+            margin: 25px auto 0;
+            padding: 15px 25px;
+            max-width: 480px;
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 12px;
+        }
+
+        nav {
+            background: #ffffff;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+            nav a {
+                color: #4338ca;
+                text-decoration: none;
+                font-weight: 600;
+                transition: 0.3s;
+            }
+
+                nav a:hover {
+                    color: #818cf8;
+                }
+
+        .contenedor {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .introduccion {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 35px;
+            border-left: 5px solid #6366f1;
+        }
+
+        h2 {
+            color: #3730a3;
+            margin-bottom: 18px;
+            font-size: 27px;
+        }
+
+        h3 {
+            color: #4338ca;
+            margin: 20px 0 10px;
+        }
+
+        .tarjeta {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid #6366f1;
+            scroll-margin-top: 85px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 5px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 25px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 7px;
+        }
+
+        .ejemplo {
+            background: #eef2ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #6366f1;
+        }
+
+        .codigo {
+            background: #172554;
+            color: #c7d2fe;
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+            margin-top: 12px;
+        }
+
+        .comparacion {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: #3730a3;
+            color: white;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        tr:nth-child(even) {
+            background: #f1f5f9;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #312e81, #4f46e5);
+            color: white;
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 35px;
+        }
+
+            .conclusion h2 {
+                color: white;
+            }
+
+        .referencias {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 35px;
+        }
+
+            .referencias a {
+                color: #4338ca;
+                overflow-wrap: anywhere;
+            }
+
+        footer {
+            background: #172554;
+            color: #c7d2fe;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media(max-width: 600px) {
+            header h1 {
+                font-size: 30px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            .tarjeta {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Métodos de Búsqueda</h1>
+        <p>Unidad 6 | Estructura de Datos</p>
+
+        <div class="alumno">
+            <p><strong>Alumno:</strong> Isis Mayte Gomez Chavez</p>
+            <p><strong>Número de control:</strong> 24410211</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#secuencial">6.1 Secuencial</a>
+        <a href="#binaria">6.2 Binaria</a>
+        <a href="#hash">6.3 Hash</a>
+        <a href="#comparacion">Comparación</a>
+        <a href="#referencias">Fuentes</a>
+    </nav>
+
+    <main class="contenedor">
+
+        <section class="introduccion" id="inicio">
+            <h2>Introducción</h2>
+
+            <p>
+                Los métodos de búsqueda son algoritmos que permiten localizar
+                información dentro de una estructura de datos, como arreglos,
+                listas o tablas. Su objetivo principal es encontrar un elemento
+                determinado de la manera más rápida y eficiente posible.
+            </p>
+
+            <p>
+                Existen diferentes métodos de búsqueda y cada uno utiliza
+                procedimientos específicos para localizar los datos. En esta
+                unidad se estudian tres métodos importantes: búsqueda
+                secuencial, búsqueda binaria y búsqueda por funciones de Hash.
+            </p>
+        </section>
+
+        <!-- TEMA 6.1 -->
+
+        <section class="tarjeta" id="secuencial">
+
+            <span class="etiqueta">Tema 6.1</span>
+            <h2>Búsqueda Secuencial</h2>
+
+            <p>
+                La búsqueda secuencial, también conocida como búsqueda lineal,
+                es un método que consiste en revisar los elementos de una
+                colección uno por uno, comenzando desde el primero, hasta
+                encontrar el dato que se está buscando o llegar al final
+                de la estructura.
+            </p>
+
+            <h3>¿Cómo funciona?</h3>
+
+            <ul>
+                <li>Se comienza desde el primer elemento del arreglo.</li>
+                <li>Se compara el elemento actual con el valor buscado.</li>
+                <li>Si coinciden, se devuelve la posición del elemento.</li>
+                <li>Si no coinciden, se continúa con el siguiente elemento.</li>
+                <li>El proceso termina cuando se encuentra el dato o se revisan todos los elementos.</li>
+            </ul>
+
+            <div class="ejemplo">
+                <h3>Ejemplo práctico</h3>
+
+                <p>
+                    Tenemos el siguiente arreglo y queremos encontrar el número 25:
+                </p>
+
+                <p><strong>Arreglo:</strong> 10, 15, 20, 25, 30, 35</p>
+
+                <p>
+                    El algoritmo compara primero 10, después 15, luego 20
+                    y finalmente 25. Al encontrarlo, devuelve su posición.
+                </p>
+
+                <p><strong>Resultado:</strong> Elemento encontrado en la posición 3 (índice desde 0).</p>
+            </div>
+
+            <h3>Características</h3>
+
+            <ul>
+                <li>No necesita que los datos estén ordenados.</li>
+                <li>Es fácil de comprender e implementar.</li>
+                <li>Funciona con arreglos y listas enlazadas.</li>
+                <li>Revisa los elementos de manera consecutiva.</li>
+            </ul>
+
+            <h3>Ventajas</h3>
+
+            <ul>
+                <li>Implementación sencilla.</li>
+                <li>No necesita memoria adicional significativa.</li>
+                <li>Puede trabajar con datos desordenados.</li>
+            </ul>
+
+            <h3>Desventajas</h3>
+
+            <ul>
+                <li>Puede ser lento cuando existen muchos elementos.</li>
+                <li>En el peor caso debe revisar toda la colección.</li>
+            </ul>
+
+            <h3>Complejidad</h3>
+
+            <div class="ejemplo">
+                <p><strong>Mejor caso:</strong> O(1)</p>
+                <p><strong>Caso promedio:</strong> O(n)</p>
+                <p><strong>Peor caso:</strong> O(n)</p>
+                <p><strong>Espacial:</strong> O(1)</p>
+            </div>
+
+            <h3>Pseudocódigo</h3>
+
+            <div class="codigo">
+                FUNCIÓN busquedaSecuencial(arreglo, dato)
+
+                PARA i = 0 HASTA longitud(arreglo)-1
+
+                SI arreglo[i] == dato ENTONCES
+
+                RETORNAR i
+
+                FIN SI
+
+                FIN PARA
+
+                RETORNAR -1
+
+                FIN FUNCIÓN
+            </div>
+
+        </section>
+
+        <!-- TEMA 6.2 -->
+
+        <section class="tarjeta" id="binaria">
+
+            <span class="etiqueta">Tema 6.2</span>
+            <h2>Búsqueda Binaria</h2>
+
+            <p>
+                La búsqueda binaria, también llamada búsqueda dicotómica,
+                es un algoritmo que permite localizar un elemento dividiendo
+                repetidamente el conjunto de datos en dos partes.
+                Para funcionar correctamente, los elementos deben estar
+                previamente ordenados.
+            </p>
+
+            <h3>¿Cómo funciona?</h3>
+
+            <ul>
+                <li>Se establece un límite inferior y uno superior.</li>
+                <li>Se calcula la posición del elemento central.</li>
+                <li>Se compara el valor central con el dato buscado.</li>
+                <li>Si el dato es menor, se continúa en la mitad izquierda.</li>
+                <li>Si es mayor, se continúa en la mitad derecha.</li>
+                <li>El procedimiento se repite hasta encontrar el elemento o determinar que no existe.</li>
+            </ul>
+
+            <div class="ejemplo">
+                <h3>Ejemplo práctico</h3>
+
+                <p>
+                    Tenemos un arreglo ordenado y queremos encontrar el número 30:
+                </p>
+
+                <p><strong>Arreglo:</strong> 10, 20, 30, 40, 50, 60, 70</p>
+
+                <p>
+                    1. Se selecciona el elemento central: 40.
+                </p>
+
+                <p>
+                    2. Como 30 es menor que 40, se descarta la mitad derecha.
+                </p>
+
+                <p>
+                    3. Se analiza la mitad izquierda y se encuentra el número 30.
+                </p>
+
+                <p><strong>Resultado:</strong> Elemento encontrado en la posición 2.</p>
+            </div>
+
+            <h3>Características</h3>
+
+            <ul>
+                <li>Necesita que los datos estén ordenados.</li>
+                <li>Divide el espacio de búsqueda en dos partes.</li>
+                <li>Reduce considerablemente el número de comparaciones.</li>
+                <li>Es recomendable para estructuras con muchos elementos.</li>
+            </ul>
+
+            <h3>Ventajas</h3>
+
+            <ul>
+                <li>Es más rápida que la búsqueda secuencial en colecciones grandes y ordenadas.</li>
+                <li>Realiza pocas comparaciones.</li>
+                <li>Su funcionamiento es eficiente.</li>
+            </ul>
+
+            <h3>Desventajas</h3>
+
+            <ul>
+                <li>Los datos deben estar ordenados previamente.</li>
+                <li>Su implementación requiere controlar los límites del arreglo.</li>
+                <li>No es adecuada para recorrer directamente listas enlazadas.</li>
+            </ul>
+
+            <h3>Complejidad</h3>
+
+            <div class="ejemplo">
+                <p><strong>Mejor caso:</strong> O(1)</p>
+                <p><strong>Caso promedio:</strong> O(log n)</p>
+                <p><strong>Peor caso:</strong> O(log n)</p>
+                <p><strong>Espacial:</strong> O(1) en su versión iterativa.</p>
+            </div>
+
+            <h3>Pseudocódigo</h3>
+
+            <div class="codigo">
+                FUNCIÓN busquedaBinaria(arreglo, dato)
+
+                inicio = 0
+
+                fin = longitud(arreglo) - 1
+
+                MIENTRAS inicio <= fin
+
+                medio = (inicio + fin) / 2
+
+                SI arreglo[medio] == dato
+
+                RETORNAR medio
+
+                SI dato < arreglo[medio]
+
+                fin = medio - 1
+
+                SINO
+
+                inicio = medio + 1
+
+                FIN SI
+
+                FIN MIENTRAS
+
+                RETORNAR -1
+
+                FIN FUNCIÓN
+            </div>
+
+        </section>
+
+        <!-- TEMA 6.3 -->
+
+        <section class="tarjeta" id="hash">
+
+            <span class="etiqueta">Tema 6.3</span>
+            <h2>Búsqueda por Funciones de Hash</h2>
+
+            <p>
+                La búsqueda por funciones de Hash es un método que permite
+                localizar información mediante una función matemática que
+                transforma una clave en una dirección o posición dentro de
+                una tabla Hash.
+            </p>
+
+            <p>
+                Su principal objetivo es acceder directamente a la ubicación
+                donde se encuentra almacenado un dato, evitando tener que
+                revisar todos los elementos de la estructura.
+            </p>
+
+            <h3>¿Cómo funciona?</h3>
+
+            <ul>
+                <li>Se recibe el dato o clave que se desea buscar.</li>
+                <li>Se aplica una función Hash a la clave.</li>
+                <li>La función calcula una posición dentro de la tabla.</li>
+                <li>Se consulta la posición obtenida.</li>
+                <li>Si existe una colisión, se utiliza un método para resolverla.</li>
+            </ul>
+
+            <div class="ejemplo">
+                <h3>Ejemplo práctico</h3>
+
+                <p>
+                    Supongamos que tenemos una tabla con 100 posiciones y
+                    queremos almacenar el número 7259.
+                </p>
+
+                <p><strong>Función:</strong> h(clave) = clave % 100</p>
+
+                <p><strong>Operación:</strong> 7259 % 100 = 59</p>
+
+                <p>
+                    El número 7259 se almacena en la posición 59 de la tabla.
+                    Para buscarlo nuevamente, se aplica la misma función
+                    y se consulta esa posición.
+                </p>
+            </div>
+
+            <h3>Tipos de funciones Hash</h3>
+
+            <h3>1. Función módulo</h3>
+
+            <p>
+                Consiste en dividir la clave entre el tamaño de la tabla
+                y utilizar el residuo como dirección.
+            </p>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>7259 % 100 = 59</p>
+            </div>
+
+            <h3>2. Función cuadrática</h3>
+
+            <p>
+                Consiste en elevar la clave al cuadrado y seleccionar
+                los dígitos centrales del resultado para obtener
+                la posición correspondiente.
+            </p>
+
+            <h3>3. Función de plegamiento</h3>
+
+            <p>
+                Divide la clave en varias partes, suma los grupos
+                obtenidos y utiliza los últimos dígitos del resultado
+                como dirección.
+            </p>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>7259 → 72 + 59 = 131</p>
+                <p>Dirección obtenida: 31</p>
+            </div>
+
+            <h3>4. Función de truncamiento</h3>
+
+            <p>
+                Selecciona determinados dígitos de la clave para formar
+                la dirección dentro de la tabla.
+            </p>
+
+            <h3>¿Qué son las colisiones?</h3>
+
+            <p>
+                Una colisión ocurre cuando dos claves diferentes generan
+                la misma posición dentro de una tabla Hash. Para resolver
+                este problema existen diferentes métodos.
+            </p>
+
+            <h3>Prueba lineal</h3>
+
+            <p>
+                Consiste en buscar la siguiente posición disponible
+                cuando la dirección calculada ya está ocupada.
+                Se revisan las posiciones consecutivas hasta encontrar
+                un espacio libre.
+            </p>
+
+            <h3>Ventajas</h3>
+
+            <ul>
+                <li>Permite realizar búsquedas muy rápidas en promedio.</li>
+                <li>No necesita que los datos estén ordenados.</li>
+                <li>Permite acceder directamente a las posiciones calculadas.</li>
+                <li>Es útil para almacenar y consultar grandes cantidades de información.</li>
+            </ul>
+
+            <h3>Desventajas</h3>
+
+            <ul>
+                <li>Pueden producirse colisiones.</li>
+                <li>Necesita una función Hash adecuada.</li>
+                <li>Requiere memoria adicional para mantener la tabla.</li>
+                <li>Su rendimiento puede disminuir si existen demasiadas colisiones.</li>
+            </ul>
+
+            <h3>Complejidad</h3>
+
+            <div class="ejemplo">
+                <p><strong>Mejor caso:</strong> O(1)</p>
+                <p><strong>Caso promedio:</strong> O(1)</p>
+                <p><strong>Peor caso:</strong> O(n)</p>
+                <p><strong>Espacial:</strong> O(n)</p>
+            </div>
+
+        </section>
+
+        <!-- COMPARACION -->
+
+        <section class="tarjeta" id="comparacion">
+
+            <h2>Comparación de los métodos de búsqueda</h2>
+
+            <p>
+                Cada método tiene características diferentes que determinan
+                cuándo es conveniente utilizarlo.
+            </p>
+
+            <div class="comparacion">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Secuencial</th>
+                            <th>Binaria</th>
+                            <th>Hash</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Datos ordenados</td>
+                            <td>No</td>
+                            <td>Sí</td>
+                            <td>No</td>
+                        </tr>
+
+                        <tr>
+                            <td>Mejor caso</td>
+                            <td>O(1)</td>
+                            <td>O(1)</td>
+                            <td>O(1)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Promedio</td>
+                            <td>O(n)</td>
+                            <td>O(log n)</td>
+                            <td>O(1)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Peor caso</td>
+                            <td>O(n)</td>
+                            <td>O(log n)</td>
+                            <td>O(n)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Funcionamiento</td>
+                            <td>Revisa uno por uno</td>
+                            <td>Divide en mitades</td>
+                            <td>Calcula una posición</td>
+                        </tr>
+
+                        <tr>
+                            <td>Uso principal</td>
+                            <td>Listas pequeñas</td>
+                            <td>Datos ordenados</td>
+                            <td>Consultas rápidas</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- CONCLUSION -->
+
+        <section class="conclusion">
+
+            <h2>Conclusión</h2>
+
+            <p>
+                Los métodos de búsqueda son fundamentales en la programación
+                porque permiten localizar información dentro de diferentes
+                estructuras de datos. La búsqueda secuencial destaca por su
+                sencillez y porque no necesita datos ordenados. La búsqueda
+                binaria permite encontrar elementos de manera más rápida
+                cuando los datos están ordenados. Por otro lado, la búsqueda
+                por funciones de Hash permite acceder directamente a las
+                posiciones calculadas mediante una clave.
+            </p>
+
+            <p style="margin-top:15px;">
+                Conocer las características de cada método permite seleccionar
+                el algoritmo más adecuado dependiendo de la cantidad de datos
+                y las necesidades del programa.
+            </p>
+
+        </section>
+
+        <!-- REFERENCIAS -->
+
+        <section class="referencias" id="referencias">
+
+            <h2>Fuentes de información</h2>
+
+            <p>La información de esta página se elaboró tomando como referencia los siguientes materiales:</p>
+
+            <ul>
+                <li>
+                    <a href="https://prezi.com/p/14av4jx7splc/busqueda-secuencial/"
+                       target="_blank" rel="noopener noreferrer">
+                        Búsqueda Secuencial - Prezi.
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://www.studocu.com/es-mx/document/instituto-tecnologico-de-cerro-azul/ingenieria-en-sistemas-computacionales/62-busqueda-binaria/57059415?sid=%24device%3A194c3ef93375402-024e31e151c063-b457452-53c31-194c3ef933754021795538583"
+                       target="_blank" rel="noopener noreferrer">
+                        6.2 Búsqueda Binaria - Studocu.
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://es.scribd.com/presentation/559452996/6-3-Busqueda-por-Funsiones-de-Hash"
+                       target="_blank" rel="noopener noreferrer">
+                        6.3 Búsqueda por Funciones de Hash - Scribd.
+                    </a>
+                </li>
+            </ul>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Unidad 6 | Métodos de Búsqueda</p>
+        <p>Alumno: Isis Mayte Gomez Chavez | 24410211</p>
+        <p>© 2026 - Página académica</p>
+    </footer>
+
+</body>
+</html>
